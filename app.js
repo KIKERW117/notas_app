@@ -223,8 +223,14 @@ function renderList() {
     listEl.appendChild(li);
   });
 
-  if (!visible.some(n => n.id === currentId)) {
-    if (currentFilter !== 'trash') openEditorFor(null);
+  // si la nota seleccionada ya no está visible en este filtro (se
+  // eliminó, se fue de la lista, etc.), limpia la selección SIN volver
+  // a llamar renderList (evita un bucle infinito que trababa la app)
+  if (currentId !== null && !visible.some(n => n.id === currentId) && currentFilter !== 'trash') {
+    currentId = null;
+    $('#editorEmpty').classList.remove('hidden');
+    $('#editorContent').classList.add('hidden');
+    showListMobile();
   }
 }
 
