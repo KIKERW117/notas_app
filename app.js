@@ -146,14 +146,29 @@ function openEditorFor(id) {
   renderList();
 }
 
+function showEditorMobile() {
+  document.body.classList.add('mobile-editor-open');
+  $('#editor').classList.add('editor-open');
+  $('#sidebar').classList.add('editor-open');
+}
+
+function showListMobile() {
+  document.body.classList.remove('mobile-editor-open');
+  $('#editor').classList.remove('editor-open');
+  $('#sidebar').classList.remove('editor-open');
+}
+
 function selectNote(id) {
   currentId = id;
   renderEditor();
   renderList();
   // navegación móvil: mostrar el editor a pantalla completa
-  document.body.classList.add('mobile-editor-open');
-  $('#editor').classList.add('editor-open');
-  $('#sidebar').classList.add('editor-open');
+  showEditorMobile();
+  // engancha el botón atrás del celular: en vez de salir de la app,
+  // que regrese a la lista de notas
+  if (!(history.state && history.state.notasMoradasView === 'editor')) {
+    history.pushState({ notasMoradasView: 'editor' }, '');
+  }
 }
 
 // ---------- Acciones sobre notas ----------
@@ -356,8 +371,13 @@ function initEvents() {
   $('#shareBtn').addEventListener('click', shareCurrentNote);
 
   $('#backToListBtn').addEventListener('click', () => {
-    $('#editor').classList.remove('editor-open');
-    $('#sidebar').classList.remove('editor-open');
+    // usa el historial para que sea el mismo camino que el botón
+    // atrás físico/gesto del celular
+    if (history.state && history.state.notasMoradasView === 'editor') {
+      history.back();
+    } else {
+      showListMobile();
+    }
   });
 
   $('#trashList').addEventListener('click', (e) => {
@@ -369,11 +389,30 @@ function initEvents() {
   });
 }
 
+// ---------- Navegación con el botón atrás del sistema ----------
+// Sin esto, el botón atrás de Android cierra la app entera en vez de
+// regresar a la lista de notas. Al marcar un estado en el historial
+// cuando se abre una nota, el botón atrás solo "gasta" ese estado
+// (vuelve a la lista) y recién en un segundo toque sale de la app,
+// igual que cualquier otra app nativa.
+function initBackButtonHandling() {
+  if (!history.state) {
+    history.replaceState({ notasMoradasView: 'list' }, '');
+  }
+  window.addEventListener('popstate', (event) => {
+    const view = event.state && event.state.notasMoradasView;
+    if (view !== 'editor') {
+      showListMobile();
+    }
+  });
+}
+
 // ---------- Arranque ----------
 function init() {
   applyTheme(localStorage.getItem(THEME_KEY) || 'violeta');
   loadNotes();
   initEvents();
+  initBackButtonHandling();
   renderList();
 
   if ('serviceWorker' in navigator) {
