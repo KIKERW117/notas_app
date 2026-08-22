@@ -266,7 +266,7 @@ function renderEditor() {
   $('#noteBody').value = note.body || '';
   $('#noteDate').textContent = 'Editado: ' + formatDate(note.updatedAt);
   $('#noteChars').textContent = (note.body || '').length + ' caracteres';
-  $('#pinBtn').classList.toggle('active', !!note.pinned);
+  $('#pinMenuItem').textContent = note.pinned ? '📌 Quitar de fijadas' : '📌 Fijar nota';
   renderSubjectSelect();
   $('#subjectSelect').value = note.subjectId || '';
   $('#dueDateInput').value = note.dueDate || '';
@@ -628,9 +628,17 @@ function initEvents() {
     if (e.target.matches('input[type="checkbox"]')) toggleChecklistItem(e.target.dataset.id);
   });
 
-  $('#pinBtn').addEventListener('click', togglePin);
-  $('#deleteBtn').addEventListener('click', deleteCurrentNote);
-  $('#shareBtn').addEventListener('click', shareCurrentNote);
+  $('#noteMenuBtn').addEventListener('click', () => {
+    $('#noteMenuPanel').classList.toggle('hidden');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#noteMenuPanel') && !e.target.closest('#noteMenuBtn')) {
+      $('#noteMenuPanel').classList.add('hidden');
+    }
+  });
+  $('#pinMenuItem').addEventListener('click', () => { togglePin(); $('#noteMenuPanel').classList.add('hidden'); });
+  $('#shareMenuItem').addEventListener('click', () => { shareCurrentNote(); $('#noteMenuPanel').classList.add('hidden'); });
+  $('#deleteMenuItem').addEventListener('click', () => { deleteCurrentNote(); $('#noteMenuPanel').classList.add('hidden'); });
 
   $('#backToListBtn').addEventListener('click', () => {
     // usa el historial para que sea el mismo camino que el botón

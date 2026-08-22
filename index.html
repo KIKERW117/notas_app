@@ -69,9 +69,12 @@
         <button id="backToListBtn" title="Volver a la lista" aria-label="Volver a la lista">←</button>
         <input id="noteTitle" class="note-title" type="text" placeholder="Título de la nota" maxlength="120">
         <div class="editor-actions">
-          <button id="pinBtn" class="icon-btn" title="Fijar nota">📌</button>
-          <button id="shareBtn" class="icon-btn" title="Compartir nota">↗</button>
-          <button id="deleteBtn" class="icon-btn" title="Eliminar nota">🗑</button>
+          <button id="noteMenuBtn" class="icon-btn" title="Opciones de la nota" aria-label="Opciones de la nota">⋮</button>
+          <div id="noteMenuPanel" class="menu-panel note-menu-panel hidden">
+            <button id="pinMenuItem" class="menu-item">📌 Fijar nota</button>
+            <button id="shareMenuItem" class="menu-item">↗ Compartir nota</button>
+            <button id="deleteMenuItem" class="menu-item danger">🗑 Eliminar nota</button>
+          </div>
         </div>
       </div>
       <div class="note-meta">

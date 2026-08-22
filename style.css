@@ -179,6 +179,17 @@ button, input, textarea {
   cursor: pointer;
 }
 .menu-item:hover { background: var(--accent-soft); }
+.menu-item.danger { color: var(--danger); }
+.menu-item.danger:hover { background: rgba(244, 114, 182, 0.14); }
+
+.note-menu-panel {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  min-width: 190px;
+  z-index: 30;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+}
 
 .filter-row { display: flex; gap: 6px; }
 .chip {
@@ -459,7 +470,7 @@ button, input, textarea {
 }
 .note-title::placeholder { color: var(--muted); }
 
-.editor-actions { display: flex; gap: 8px; }
+.editor-actions { position: relative; display: flex; gap: 8px; }
 .icon-btn {
   width: 36px; height: 36px;
   border-radius: 9px;
