@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#150726">
+<title>Notas Moradas</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Barra lateral / lista de notas -->
+  <aside id="sidebar">
+    <header class="brand">
+      <div class="brand-mark">✎</div>
+      <div>
+        <h1>Notas Moradas</h1>
+        <p class="tagline">tu bloc, en tinta violeta</p>
+      </div>
+    </header>
+
+    <div class="search-wrap">
+      <input id="searchInput" type="text" placeholder="Buscar en tus notas…" autocomplete="off">
+    </div>
+
+    <div class="toolbar-row">
+      <button id="newNoteBtn" class="btn btn-primary">+ Nueva nota</button>
+      <button id="menuBtn" class="btn btn-icon" title="Más opciones" aria-label="Más opciones">⋯</button>
+    </div>
+
+    <div id="menuPanel" class="menu-panel hidden">
+      <button id="exportBtn" class="menu-item">⭳ Exportar notas (.json)</button>
+      <label class="menu-item" for="importInput">⭱ Importar notas (.json)</label>
+      <input type="file" id="importInput" accept="application/json" hidden>
+      <button id="themeToggleBtn" class="menu-item">◐ Cambiar tono morado</button>
+    </div>
+
+    <nav id="filterRow" class="filter-row">
+      <button class="chip active" data-filter="all">Todas</button>
+      <button class="chip" data-filter="pinned">Fijadas</button>
+      <button class="chip" data-filter="trash">Papelera</button>
+    </nav>
+
+    <ul id="notesList" class="notes-list"></ul>
+
+    <p id="emptyState" class="empty-state hidden">Aún no hay notas por aquí.<br>Crea la primera con “+ Nueva nota”.</p>
+  </aside>
+
+  <!-- Editor -->
+  <main id="editor">
+    <div id="editorEmpty" class="editor-empty">
+      <div class="editor-empty-mark">✎</div>
+      <p>Selecciona una nota o crea una nueva para empezar a escribir.</p>
+    </div>
+
+    <div id="editorContent" class="editor-content hidden">
+      <div class="editor-top">
+        <button id="backToListBtn" title="Volver a la lista" aria-label="Volver a la lista">←</button>
+        <input id="noteTitle" class="note-title" type="text" placeholder="Título de la nota" maxlength="120">
+        <div class="editor-actions">
+          <button id="pinBtn" class="icon-btn" title="Fijar nota">📌</button>
+          <button id="shareBtn" class="icon-btn" title="Compartir nota">↗</button>
+          <button id="deleteBtn" class="icon-btn" title="Eliminar nota">🗑</button>
+        </div>
+      </div>
+      <div class="note-meta">
+        <span id="noteDate"></span>
+        <span id="noteChars"></span>
+      </div>
+      <textarea id="noteBody" placeholder="Escribe aquí…"></textarea>
+    </div>
+
+    <!-- Vista de papelera -->
+    <div id="trashView" class="trash-view hidden">
+      <h2>Papelera</h2>
+      <p class="trash-hint">Las notas eliminadas se guardan aquí hasta que las restaures o borres para siempre.</p>
+      <ul id="trashList" class="notes-list"></ul>
+    </div>
+  </main>
+
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
