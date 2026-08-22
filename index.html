@@ -43,8 +43,14 @@
     <nav id="filterRow" class="filter-row">
       <button class="chip active" data-filter="all">Todas</button>
       <button class="chip" data-filter="pinned">Fijadas</button>
+      <button class="chip" data-filter="pendientes">Pendientes</button>
       <button class="chip" data-filter="trash">Papelera</button>
     </nav>
+
+    <div class="subjects-row">
+      <div id="subjectChips" class="subject-chips"></div>
+      <button id="addSubjectChipBtn" class="chip chip-add" title="Nueva materia">+ materia</button>
+    </div>
 
     <ul id="notesList" class="notes-list"></ul>
 
@@ -72,6 +78,30 @@
         <span id="noteDate"></span>
         <span id="noteChars"></span>
       </div>
+
+      <div class="note-controls">
+        <select id="subjectSelect" title="Materia">
+          <option value="">Sin materia</option>
+        </select>
+        <label class="due-label">
+          Entrega:
+          <input type="date" id="dueDateInput">
+        </label>
+        <button id="clearDueBtn" class="link-btn" title="Quitar fecha">quitar fecha</button>
+      </div>
+
+      <div id="checklistSection" class="checklist-section">
+        <div class="checklist-header">
+          <span id="checklistProgress">Pendientes de esta nota</span>
+          <button id="toggleChecklistInput" class="link-btn">+ agregar pendiente</button>
+        </div>
+        <ul id="checklistItems" class="checklist-items"></ul>
+        <div id="checklistInputRow" class="checklist-input-row hidden">
+          <input type="text" id="checklistInput" placeholder="Ej. Repasar tema 3 antes del examen…" maxlength="140">
+          <button id="checklistAddBtn" class="btn btn-icon" title="Agregar">+</button>
+        </div>
+      </div>
+
       <textarea id="noteBody" placeholder="Escribe aquí…"></textarea>
     </div>
 

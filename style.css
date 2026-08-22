@@ -192,6 +192,163 @@ button, input, textarea {
 }
 .chip.active { background: var(--accent-soft); border-color: var(--accent); color: var(--text); }
 
+/* ===== Materias ===== */
+.subjects-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+.subject-chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  flex: 1;
+  padding-bottom: 2px;
+}
+.subject-chips::-webkit-scrollbar { height: 4px; }
+.subject-chip {
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  background: transparent;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.subject-chip .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.subject-chip.active { color: var(--text); border-color: currentColor; }
+.chip-add {
+  flex-shrink: 0;
+  color: var(--muted);
+  border-style: dashed;
+}
+.chip-add:hover { border-color: var(--accent); color: var(--text); }
+
+/* ===== Controles de nota: materia y fecha ===== */
+.note-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  font-size: 12px;
+}
+.note-controls select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  outline: none;
+}
+.due-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+}
+.due-label input[type="date"] {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 8px;
+  font-size: 12px;
+  outline: none;
+  color-scheme: dark;
+}
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 11px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+.link-btn:hover { color: var(--accent-2); }
+
+/* ===== Checklist / pendientes dentro de una nota ===== */
+.checklist-section {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+}
+.checklist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+.checklist-items { list-style: none; margin: 8px 0 0; padding: 0; }
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 13px;
+}
+.checklist-item input[type="checkbox"] {
+  width: 16px; height: 16px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+.checklist-item span {
+  flex: 1;
+  word-break: break-word;
+}
+.checklist-item.done span { color: var(--muted); text-decoration: line-through; }
+.checklist-item .remove-item {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 4px;
+}
+.checklist-item .remove-item:hover { color: var(--danger); }
+.checklist-input-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+.checklist-input-row input {
+  flex: 1;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 13px;
+  outline: none;
+}
+.checklist-input-row input:focus { border-color: var(--accent); }
+
+/* ===== Insignias en las tarjetas de nota ===== */
+.card-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.badge.due-soon { border-color: #fbbf24; color: #fbbf24; }
+.badge.due-overdue { border-color: var(--danger); color: var(--danger); }
+.badge.checklist { border-color: var(--accent); color: var(--accent-2); }
+
 .notes-list {
   list-style: none;
   margin: 0;

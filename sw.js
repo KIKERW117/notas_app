@@ -1,6 +1,6 @@
 // Service worker de Notas Moradas: guarda los archivos de la app para que
 // funcione sin conexión. Las notas viven en localStorage, no aquí.
-const CACHE = 'notas-moradas-v1';
+const CACHE = 'notas-moradas-v2';
 const FILES = [
   './',
   './index.html',
