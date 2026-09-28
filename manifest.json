@@ -1,7 +1,7 @@
 {
-  "name": "Notas Moradas",
-  "short_name": "Notas",
-  "description": "Bloc de notas personal en tonos morados, con modo oscuro, exportar/importar y compartir.",
+  "name": "Amatist",
+  "short_name": "Amatist",
+  "description": "Bloc de notas personal en tonos morados, con modo oscuro, materias, fechas límite, exportar/importar y compartir.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

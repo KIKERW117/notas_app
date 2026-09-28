@@ -1,4 +1,4 @@
-// ===== Notas Moradas — lógica de la app =====
+// ===== Amatist — lógica de la app =====
 // Todo se guarda en localStorage: funciona 100% sin conexión y sin servidor.
 
 const STORAGE_KEY = 'notasMoradas.notes.v1';
@@ -223,9 +223,6 @@ function renderList() {
     listEl.appendChild(li);
   });
 
-  // si la nota seleccionada ya no está visible en este filtro (se
-  // eliminó, se fue de la lista, etc.), limpia la selección SIN volver
-  // a llamar renderList (evita un bucle infinito que trababa la app)
   if (currentId !== null && !visible.some(n => n.id === currentId) && currentFilter !== 'trash') {
     currentId = null;
     $('#editorEmpty').classList.remove('hidden');
@@ -306,10 +303,7 @@ function selectNote(id) {
   currentId = id;
   renderEditor();
   renderList();
-  // navegación móvil: mostrar el editor a pantalla completa
   showEditorMobile();
-  // engancha el botón atrás del celular: en vez de salir de la app,
-  // que regrese a la lista de notas
   if (!(history.state && history.state.notasMoradasView === 'editor')) {
     history.pushState({ notasMoradasView: 'editor' }, '');
   }
@@ -461,7 +455,6 @@ function importNotesFromFile(file) {
       const incoming = Array.isArray(parsed) ? parsed : parsed.notes;
       if (!Array.isArray(incoming)) throw new Error('Formato inválido');
 
-      // importa materias también, fusionando por nombre
       const incomingSubjects = Array.isArray(parsed.subjects) ? parsed.subjects : [];
       const idRemap = {};
       incomingSubjects.forEach(s => {
@@ -478,7 +471,6 @@ function importNotesFromFile(file) {
       });
       saveSubjects();
 
-      // fusiona notas por id; si el id ya existe, se agrega como copia nueva
       const existingIds = new Set(notes.map(n => n.id));
       incoming.forEach(n => {
         if (!n || typeof n !== 'object') return;
@@ -524,10 +516,9 @@ async function shareCurrentNote() {
       await navigator.share({ title: note.title || 'Nota', text });
       return;
     } catch (e) {
-      if (e.name === 'AbortError') return; // el usuario canceló
+      if (e.name === 'AbortError') return;
     }
   }
-  // Alternativa: copiar al portapapeles
   try {
     await navigator.clipboard.writeText(text);
     showToast('Nota copiada al portapapeles');
@@ -647,8 +638,6 @@ function initEvents() {
   $('#deleteMenuItem').addEventListener('click', () => { deleteCurrentNote(); $('#noteMenuPanel').classList.add('hidden'); });
 
   $('#backToListBtn').addEventListener('click', () => {
-    // usa el historial para que sea el mismo camino que el botón
-    // atrás físico/gesto del celular
     if (history.state && history.state.notasMoradasView === 'editor') {
       history.back();
     } else {
@@ -665,12 +654,6 @@ function initEvents() {
   });
 }
 
-// ---------- Navegación con el botón atrás del sistema ----------
-// Sin esto, el botón atrás de Android cierra la app entera en vez de
-// regresar a la lista de notas. Al marcar un estado en el historial
-// cuando se abre una nota, el botón atrás solo "gasta" ese estado
-// (vuelve a la lista) y recién en un segundo toque sale de la app,
-// igual que cualquier otra app nativa.
 function initBackButtonHandling() {
   if (!history.state) {
     history.replaceState({ notasMoradasView: 'list' }, '');

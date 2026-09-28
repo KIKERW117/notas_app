@@ -1,6 +1,6 @@
-// Service worker de Notas Moradas: guarda los archivos de la app para que
+// Service worker de Amatist: guarda los archivos de la app para que
 // funcione sin conexión. Las notas viven en localStorage, no aquí.
-const CACHE = 'notas-moradas-v3';
+const CACHE = 'notas-moradas-v4';
 const FILES = [
   './',
   './index.html',
