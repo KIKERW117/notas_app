@@ -652,6 +652,19 @@ function initEvents() {
     if (btn.dataset.action === 'restore') restoreNote(id);
     if (btn.dataset.action === 'wipe') wipeNote(id);
   });
+
+  // Permitir eliminar con la tecla Suprimir o Backspace (fuera de inputs/textareas)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Delete' || e.key === 'Backspace') {
+      const activeTag = document.activeElement.tagName;
+      if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
+      
+      if (currentId !== null) {
+        e.preventDefault();
+        deleteCurrentNote();
+      }
+    }
+  });
 }
 
 function initBackButtonHandling() {
